@@ -1,24 +1,65 @@
-import logo from './logo.svg';
 import './App.css';
+import NavBar from "./components/NavBar";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import Pocetna from "./components/Pocetna";
+import NovaBeleska from "./components/NovaBeleska";
+import {useEffect, useState} from "react";
+
 
 function App() {
+
+    const [beleske,setBeleske]=useState([
+        {
+            "id":1,
+            "naslov":"Naslov 1",
+            "tekst":"Tekst 1",
+            "status":"zavrsen"
+        },  {
+            "id":2,
+            "naslov":"Naslov 2",
+            "tekst":"Tekst 2",
+            "status":"cekanje"
+        },  {
+            "id":3,
+            "naslov":"Naslov 3",
+            "tekst":"Tekst 3",
+            "status":"cekanje"
+        },
+    ]);
+
+    const[zavrseni,setZavrseni]=useState(vratiZavrsene());
+    const[ukupno,setUkupno]=useState(beleske.length);
+
+    function vratiZavrsene(){
+        let br =0;
+        beleske.forEach((b)=>{
+            if(b.status==="zavrsen")
+                br++;
+        });
+        return br;
+    }
+
+function zavrsi(id){
+    beleske.forEach((b)=>{
+            if(b.id===id){
+                b.status="zavrsen";
+            }
+        })
+    setBeleske(beleske);
+    beleske.forEach((b)=>console.log(b))
+    setZavrseni(vratiZavrsene())
+    setUkupno(beleske.length)
+    }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <BrowserRouter>
+        <NavBar zavrseni={zavrseni} ukupno={ukupno}/>
+          <Routes>
+            <Route path="/" element={<Pocetna beleske={beleske} zavrsi={zavrsi}/>}/>
+            <Route path="/novaB" element={<NovaBeleska/>}/>
+          </Routes>
+      </BrowserRouter>
+
   );
 }
 
