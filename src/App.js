@@ -44,18 +44,32 @@ function zavrsi(id){
             if(b.id===id){
                 b.status="zavrsen";
             }
-        })
-    setBeleske(beleske);
-    beleske.forEach((b)=>console.log(b))
-    setZavrseni(vratiZavrsene())
-    setUkupno(beleske.length)
+        });
+    osveziPocetnu()
     }
+
+    function osveziPocetnu(){
+        beleske.forEach((b)=>console.log(b))
+        setBeleske(beleske);
+        setZavrseni(vratiZavrsene())
+        setUkupno(beleske.length)
+    }
+
+ function obrisi(id){
+    for(let i=0;i<beleske.length;i++){
+        if(beleske[i].id===id){
+            beleske.splice(i,1);
+            break;
+        }
+    }
+    osveziPocetnu();
+ }
 
   return (
       <BrowserRouter>
         <NavBar zavrseni={zavrseni} ukupno={ukupno}/>
           <Routes>
-            <Route path="/" element={<Pocetna beleske={beleske} zavrsi={zavrsi}/>}/>
+            <Route path="/" element={<Pocetna beleske={beleske} zavrsi={zavrsi} obrisi={obrisi}/>}/>
             <Route path="/novaB" element={<NovaBeleska/>}/>
           </Routes>
       </BrowserRouter>
