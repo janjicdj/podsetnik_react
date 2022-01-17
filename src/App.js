@@ -87,7 +87,7 @@ function App() {
 
         let nove=[];
         beleske.forEach((b)=>{
-            if(b.naslov.toLowerCase().indexOf(e.target.value)>-1){
+            if(b.naslov.toLowerCase().indexOf(e.target.value.toLowerCase())>-1){
                 nove.push(b)
             }
         })
