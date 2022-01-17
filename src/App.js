@@ -25,6 +25,7 @@ function App() {
             "status": "cekanje"
         },
     ]);
+    const [beleskePrikaz,setBeleskePrikaz]=useState(beleske);
     const [zavrseni, setZavrseni] = useState(vratiZavrsene());
     const [ukupno, setUkupno] = useState(beleske.length);
 
@@ -50,6 +51,7 @@ function App() {
     function osveziPocetnu() {
         beleske.forEach((b) => console.log(b))
         setBeleske(beleske);
+        setBeleskePrikaz(beleske)
         setZavrseni(vratiZavrsene())
         setUkupno(beleske.length)
 
@@ -81,11 +83,23 @@ function App() {
         e.target.reset();
     }
 
+    function pretraga(e){
+
+        let nove=[];
+        beleske.forEach((b)=>{
+            if(b.naslov.toLowerCase().indexOf(e.target.value)>-1){
+                nove.push(b)
+            }
+        })
+        setBeleskePrikaz(nove);
+
+    }
+
     return (
         <BrowserRouter>
-            <NavBar zavrseni={zavrseni} ukupno={ukupno}/>
+            <NavBar zavrseni={zavrseni} ukupno={ukupno} pretraga={pretraga}/>
             <Routes>
-                <Route path="/" element={<Pocetna beleske={beleske} zavrsi={zavrsi} obrisi={obrisi}/>}/>
+                <Route path="/" element={<Pocetna beleske={beleskePrikaz} zavrsi={zavrsi} obrisi={obrisi}/>}/>
                 <Route path="/novaB" element={<NovaBeleska dodajBelesku={dodajBelesku}/>}/>
             </Routes>
         </BrowserRouter>

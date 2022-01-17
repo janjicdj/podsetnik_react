@@ -3,7 +3,7 @@ import {RiDraftFill} from "react-icons/ri";
 import {Link} from "react-router-dom";
 import PrikazStanjaB from "./PrikazStanjaB";
 
-const NavBar = ({zavrseni,ukupno}) => {
+const NavBar = ({zavrseni,ukupno,pretraga}) => {
     return (
 
         <nav className="navbar navbar-expand-xl navbar-light bg-light ">
@@ -25,8 +25,7 @@ const NavBar = ({zavrseni,ukupno}) => {
                     </ul>
                     <PrikazStanjaB className="container" zavrseni={zavrseni} ukupno={ukupno}/>
                     <form className="d-flex">
-                        <input className="form-control me-2" type="search" placeholder="Pretraga" aria-label="Pretraga" />
-                            <button className="btn btn-outline-success" type="submit">Pretraga</button>
+                        <input className="form-control me-2" type="search" placeholder="Pretraga" aria-label="Pretraga" onInput={pretraga} />
                     </form>
                 </div>
             </div>
